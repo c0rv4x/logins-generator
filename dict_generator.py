@@ -1,6 +1,6 @@
 import copy
 from format_generator import FormatGenerator
-from transliterate import transliterate
+from transliterate import Transliterator
 
 class Combinations:
     def __init__(self):
@@ -74,19 +74,21 @@ class Generator:
         self.build_combinations()
 
     def transliterate_words(self):
+        transliterator = Transliterator(self.config)
+
         transliterated_names = []
         for name in self.names:
-            transliterated_names += transliterate(name, self.config)
+            transliterated_names += transliterator.convert(name)
         self.names = transliterated_names
 
         transliterated_surnames = []
         for surname in self.surnames:
-            transliterated_surnames += transliterate(surname, self.config)
+            transliterated_surnames += transliterator.convert(surname)
         self.surnames = transliterated_surnames
 
         transliterated_patronymics = []
         for patronymic in self.patronymics:
-            transliterated_patronymics += transliterate(patronymic, self.config)
+            transliterated_patronymics += transliterator.convert(patronymic)
         self.patronymics = transliterated_patronymics
 
     def build_combinations(self):
