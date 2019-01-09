@@ -62,4 +62,4 @@ if __name__== "__main__":
     else:
         patronymics = args.patronymic
 
-    print(Generator(formating, config, names, surnames, patronymics).build_formatted())
+    print('\n'.join(Generator(formating, config, names, surnames, patronymics).build_formatted()))
