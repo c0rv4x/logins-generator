@@ -12,7 +12,8 @@ class Transliterator:
 
         constructed = [""]
         
-        for letter in string:
+        for raw_letter in string:
+            letter = raw_letter.lower()
             tmp_result = []
 
             for substitute_letter in lower_case_letters.get(letter, (letter,)):
