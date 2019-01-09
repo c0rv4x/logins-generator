@@ -6,7 +6,7 @@ from format_generator import FormatGenerator
 
 def get_file_contents(filename):
     with open(filename) as w:
-        return w.read().slice().split()
+        return w.read().strip().split()
 
 if __name__== "__main__":
     parser = argparse.ArgumentParser(description='Generate list of nicknames by certain format')
