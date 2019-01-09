@@ -1,6 +1,6 @@
 import copy
 from format_generator import FormatGenerator
-
+from transliterate import transliterate
 
 class Combinations:
     def __init__(self):
@@ -62,14 +62,32 @@ class Combinations:
         return self.storage
 
 class Generator:
-    def __init__(self, formating, names=None, surnames=None, patronymics=None):
+    def __init__(self, formating, config, names=None, surnames=None, patronymics=None):
         self.formating = formating
+        self.config = config
         self.names = names or []
         self.surnames = surnames or []
         self.patronymics = patronymics or []
 
         self.combinations = None
+        self.transliterate_words()
         self.build_combinations()
+
+    def transliterate_words(self):
+        transliterated_names = []
+        for name in self.names:
+            transliterated_names += transliterate(name, self.config)
+        self.names = transliterated_names
+
+        transliterated_surnames = []
+        for surname in self.surnames:
+            transliterated_surnames += transliterate(surname, self.config)
+        self.surnames = transliterated_surnames
+
+        transliterated_patronymics = []
+        for patronymic in self.patronymics:
+            transliterated_patronymics += transliterate(patronymic, self.config)
+        self.patronymics = transliterated_patronymics
 
     def build_combinations(self):
         self.combinations = Combinations()

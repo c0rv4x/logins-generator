@@ -27,9 +27,13 @@ if __name__== "__main__":
     parser.add_argument('--patronymic-file', type=str, dest="patronymic_file",
                         help='patronymics file')
 
+    parser.add_argument('--config', type=str, default="transliteration.json", dest="transliteration_config",
+                    help='transliteration config file')
+
 
     args = parser.parse_args()
     formating = args.formating[0]
+    config = args.transliteration_config
     
     if args.name and args.name_file:
         print("You should specify either --name of --name-file, not both")
@@ -58,4 +62,4 @@ if __name__== "__main__":
     else:
         patronymics = args.patronymic
 
-    print(Generator(formating, names, surnames, patronymics).build_formatted())
+    print(Generator(formating, config, names, surnames, patronymics).build_formatted())
