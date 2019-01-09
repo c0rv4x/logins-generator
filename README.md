@@ -1,5 +1,7 @@
 # Generate logins like a sir
 
+Note that for now we support only `name`, `surname` and `patronymic` parameters
+
 ### Simple inline generator
 
 ```bash
