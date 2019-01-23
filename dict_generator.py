@@ -70,26 +70,8 @@ class Generator:
         self.patronymics = patronymics or []
 
         self.combinations = None
-        self.transliterate_words()
+        self.transliterator = Transliterator(self.config)
         self.build_combinations()
-
-    def transliterate_words(self):
-        transliterator = Transliterator(self.config)
-
-        transliterated_names = []
-        for name in self.names:
-            transliterated_names += transliterator.convert(name)
-        self.names = transliterated_names
-
-        transliterated_surnames = []
-        for surname in self.surnames:
-            transliterated_surnames += transliterator.convert(surname)
-        self.surnames = transliterated_surnames
-
-        transliterated_patronymics = []
-        for patronymic in self.patronymics:
-            transliterated_patronymics += transliterator.convert(patronymic)
-        self.patronymics = transliterated_patronymics
 
     def build_combinations(self):
         self.combinations = Combinations()
@@ -102,6 +84,8 @@ class Generator:
         results = set()
 
         for combination in self.combinations.get_data():
-            results.add(formatter.format_string(**combination))
+            formatted_not_translated = formatter.format_string(**combination)
+            for formatted_translated in self.transliterator.convert(formatted_not_translated):
+                results.add(formatted_translated)
 
         return list(results)
