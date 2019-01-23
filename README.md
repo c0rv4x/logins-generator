@@ -1,6 +1,8 @@
 # Generate logins like a sir
 
-Note that for now we support only `name`, `surname` and `patronymic` parameters
+For now Python3 is supported for sure. Other versions are not guaranteed.
+
+Note that for now we support only `name`, `surname` and `patronymic` parameters. Transliteration is always on by default, however, symbols which are not defined in `transliteration.json` will be used as-is.
 
 ### Simple inline generator
 
@@ -57,3 +59,7 @@ eboumerov
 ibumerov
 iboumerov
 ```
+
+## Change transliteration rules
+
+Edit `transliteration.json` file to change the way the letters are transliterated
