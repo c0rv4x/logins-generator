@@ -63,3 +63,7 @@ iboumerov
 ## Change transliteration rules
 
 Edit `transliteration.json` file to change the way the letters are transliterated
+
+
+### Author
+Anatoly Ivanov of Positive Technologies
