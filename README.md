@@ -5,7 +5,7 @@ Note that for now we support only `name`, `surname` and `patronymic` parameters
 ### Simple inline generator
 
 ```bash
-python3 launcher.py 'prefix.{name}.{surname}' --name евгений --surname иванов петров smith
+python3 launcher.py --name евгений --surname иванов петров smith -- 'prefix.{name}.{surname}'
 ```
 ```
 prefix.evgeniy.smith
@@ -21,13 +21,13 @@ prefix.evgeney.petrov
 ### Names in file
 
 ```bash
-python3 launcher.py 'prefix.{name}.{surname}' --name-file names.txt --surname иванов петров smith
+python3 launcher.py --name-file names.txt --surname иванов петров smith -- 'prefix.{name}.{surname}' 
 ```
 
 ### Inline generator with indexation
 
 ```bash
-python3 launcher.py 'prefix.{name[0]}.{surname}' --name евгений --surname иванов петров smith
+python3 launcher.py --name евгений --surname иванов петров smith -- 'prefix.{name[0]}.{surname}'
 ```
 ```
 prefix.e.ivanov
