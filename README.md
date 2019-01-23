@@ -7,7 +7,7 @@ Note that for now we support only `name`, `surname` and `patronymic` parameters.
 ### Simple inline generator
 
 ```bash
-python3 launcher.py --name евгений --surname иванов петров smith -- 'prefix.{name}.{surname}'
+python3 launcher.py --name евгений --surname иванов петров smith --formating 'prefix.{name}.{surname}'
 ```
 ```
 prefix.evgeniy.smith
@@ -23,13 +23,13 @@ prefix.evgeney.petrov
 ### Names in file
 
 ```bash
-python3 launcher.py --name-file names.txt --surname иванов петров smith -- 'prefix.{name}.{surname}' 
+python3 launcher.py --name-file names.txt --surname иванов петров smith --formating 'prefix.{name}.{surname}' 
 ```
 
 ### Inline generator with indexation
 
 ```bash
-python3 launcher.py --name евгений --surname иванов петров smith -- 'prefix.{name[0]}.{surname}'
+python3 launcher.py --name евгений --surname иванов петров smith --formating 'prefix.{name[0]}.{surname}'
 ```
 ```
 prefix.e.ivanov
@@ -46,7 +46,7 @@ prefix.e.petrov
 < Серьго::Бумеров@Павлович
 ```
 ```bash
-python3 launcher.py --fullname-file /tmp/1 --fullname-format 'name::surname@patronymic' -- '{name[0]}{surname}'
+python3 launcher.py --fullname-file /tmp/1 --fullname-format 'name::surname@patronymic' --formating '{name[0]}{surname}'
 ```
 ```
 ebumerov
@@ -59,6 +59,10 @@ eboumerov
 ibumerov
 iboumerov
 ```
+
+### Specify a list of formats
+
+python3 launcher.py --fullname-file /tmp/1 --fullname-format 'name::surname@patronymic' --formating-file formats.txt
 
 ## Change transliteration rules
 
