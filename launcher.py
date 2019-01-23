@@ -65,22 +65,26 @@ if __name__== "__main__":
             sys.exit(1)
 
 
-        p = Parser(args.fullname_file, args.fullname_format)
-        print(p.parse_fullname_file())
+        p = Parser(args.fullname_file, args.fullname_format).parse_fullname_file()
 
-    if args.name_file:
-        names = get_file_contents(args.name_file)
-    else:
-        names = args.name
+        names = p.get('name', None)
+        surnames = p.get('surname', None)
+        patronymics = p.get('patronymic', None)
 
-    if args.surname_file:
-        surnames = get_file_contents(args.surname_file)
     else:
-        surnames = args.surname
+        if args.name_file:
+            names = get_file_contents(args.name_file)
+        else:
+            names = args.name
 
-    if args.patronymic_file:
-        patronymics = get_file_contents(args.patronymic_file)
-    else:
-        patronymics = args.patronymic
+        if args.surname_file:
+            surnames = get_file_contents(args.surname_file)
+        else:
+            surnames = args.surname
+
+        if args.patronymic_file:
+            patronymics = get_file_contents(args.patronymic_file)
+        else:
+            patronymics = args.patronymic
 
     print('\n'.join(Generator(formating, config, names, surnames, patronymics).build_formatted()))
