@@ -38,15 +38,11 @@ def extract_parameters_name(delimiters, fullname_format):
 
     return end_parameters
 
-def parse_fullname_file(fullname_file, fullname_format):
-    delimiters = extract_delimiters(fullname_format)
-    end_parameters = extract_parameters_name(delimiters, fullname_format)
-
-    # Parsing full input file
+def extract_data_by_delimiters(fullname_file, delimiters):
     data = get_file_contents(fullname_file)
 
     result = []
-    for i in range(0, len(end_parameters) + 1):
+    for i in range(0, len(delimiters) + 1):
         result.append([])
 
     for line in data:
@@ -59,13 +55,23 @@ def parse_fullname_file(fullname_file, fullname_format):
             cut_line = cut_line[part_end_index + len(delimiter) : ]
         result[i + 1].append(cut_line)
 
+    return result
+
+def build_dictionary(result, end_parameters):
     formed_dict = {}
+
     for i in range(0, len(end_parameters)):
         key = end_parameters[i]
         value = result[i]
         formed_dict[key] = value
 
-    print(formed_dict)
+    return formed_dict
+
+def parse_fullname_file(fullname_file, fullname_format):
+    delimiters = extract_delimiters(fullname_format)
+    end_parameters = extract_parameters_name(delimiters, fullname_format)
+    result = extract_data_by_delimiters(fullname_file, delimiters)
+    formed_dict = build_dictionary(result, end_parameters)
 
 
 
