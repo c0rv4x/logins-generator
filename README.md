@@ -62,7 +62,9 @@ iboumerov
 
 ### Specify a list of formats
 
+```bash
 python3 launcher.py --fullname-file /tmp/1 --fullname-format 'name::surname@patronymic' --formating-file formats.txt
+```
 
 ## Change transliteration rules
 
