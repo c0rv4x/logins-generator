@@ -62,8 +62,8 @@ class Combinations:
         return self.storage
 
 class Generator:
-    def __init__(self, formating, config, names=None, surnames=None, patronymics=None):
-        self.formating = formating
+    def __init__(self, formatings, config, names=None, surnames=None, patronymics=None):
+        self.formatings = formatings
         self.config = config
         self.names = names or []
         self.surnames = surnames or []
@@ -80,12 +80,14 @@ class Generator:
         self.combinations.populate_with_patronymics(self.patronymics)
 
     def build_formatted(self):
-        formatter = FormatGenerator(self.formating)
         results = set()
 
-        for combination in self.combinations.get_data():
-            formatted_not_translated = formatter.format_string(**combination)
-            for formatted_translated in self.transliterator.convert(formatted_not_translated):
-                results.add(formatted_translated)
+        for formating in self.formatings:
+            formatter = FormatGenerator(formating)
+
+            for combination in self.combinations.get_data():
+                formatted_not_translated = formatter.format_string(**combination)
+                for formatted_translated in self.transliterator.convert(formatted_not_translated):
+                    results.add(formatted_translated)
 
         return list(results)

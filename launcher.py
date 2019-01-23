@@ -9,8 +9,11 @@ from utils import get_file_contents
 
 if __name__== "__main__":
     parser = argparse.ArgumentParser(description='Generate list of nicknames by certain format')
-    parser.add_argument('formating', type=str, nargs=1,
+    parser.add_argument('--formating', type=str, nargs='+',
                         help='format string (use {name}, {surname[2]}, {patronymic[5]} and constant strings)')
+    parser.add_argument('--formating-file', type=str, dest="formating_file",
+                    help='file with different formats')
+
     parser.add_argument('--name', type=str, nargs='+',
                         help='first name (multiple, space-delimited)')
     parser.add_argument('--name-file', type=str, dest='name_file',
@@ -36,9 +39,13 @@ if __name__== "__main__":
 
 
     args = parser.parse_args()
-    formating = args.formating[0]
     config = args.transliteration_config
     
+    if args.formating_file:
+        formatings = get_file_contents(args.formating_file)
+    else:
+        formatings = args.formating
+
     if args.name and args.name_file:
         print("You should specify either --name of --name-file, not both")
         sys.exit(1)
@@ -87,4 +94,4 @@ if __name__== "__main__":
         else:
             patronymics = args.patronymic
 
-    print('\n'.join(Generator(formating, config, names, surnames, patronymics).build_formatted()))
+    print('\n'.join(Generator(formatings, config, names, surnames, patronymics).build_formatted()))
